@@ -1,0 +1,6 @@
+coverage
+coveralls
+django
+django-mama-cas
+psycopg2
+pytest-django
