@@ -10,12 +10,14 @@ networks:
 services:
   db:
     image: postgres:latest
+    command: -p 5433
     volumes:
       - database_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=parallax
       - POSTGRES_DB=parallax-auth
       - POSTGRES_PASSWORD=parallax
+      - POSTGRES_PORT=5433
     ports:
       - '5433:5433'
     networks:
@@ -26,18 +28,18 @@ services:
     command: python manage.py runserver 0.0.0.0:8001
     volumes:
       - .:/parallax-auth
-    ports:
-      - "8001:8001"
     expose:
       - 8001
+    ports:
+      - "8001:8001"
     environment:
       - PYTHONUNBUFFERED=1
-      - DJANGO_SETTINGS_MODULE=parallax_auth.settings
       - DEBUG=True
       - DB_HOST=db
       - DB_NAME=parallax-auth
       - DB_USER=parallax
       - DB_PASSWORD=parallax
+      - DB_PORT=5433
     links:
       - db
     depends_on:

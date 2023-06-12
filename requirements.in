@@ -1,6 +1,7 @@
 coverage
 coveralls
 django
-django-mama-cas
+django-cors-headers
+django-oauth-toolkit
 psycopg2
 pytest-django
