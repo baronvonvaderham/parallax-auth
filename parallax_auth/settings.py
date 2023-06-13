@@ -131,6 +131,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Change user model
+AUTH_USER_MODEL = 'parallax_auth.ParallaxUser'
+
 # Cors-headers settings
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -151,6 +154,7 @@ OAUTH2_PROVIDER = {
         'groups': 'Access to your groups',
     }
 }
+OAUTH2_PROVIDER_APPLICATION_MODEL = 'parallax_auth.Server'
 
 # Rest framework settings
 REST_FRAMEWORK = {
