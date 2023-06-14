@@ -29,3 +29,10 @@ class Server(BaseModel, AbstractApplication):
 
     def __str__(self):
         return self.name
+
+    @property
+    def owner(self):
+        return self.user
+
+    def add_authorized_user(self, authorized_user):
+        self.authorized_users.add(authorized_user)

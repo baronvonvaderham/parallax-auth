@@ -30,6 +30,7 @@ django==4.2
     #   django-cors-headers
     #   django-oauth-toolkit
     #   djangorestframework
+    #   model-bakery
 django-cors-headers==4.0.0
     # via -r requirements.in
 django-oauth-toolkit==2.3.0
@@ -48,6 +49,8 @@ iniconfig==2.0.0
     # via pytest
 jwcrypto==1.5.0
     # via django-oauth-toolkit
+model-bakery==1.12.0
+    # via -r requirements.in
 oauthlib==3.2.2
     # via django-oauth-toolkit
 packaging==23.0

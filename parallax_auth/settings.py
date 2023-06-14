@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +60,7 @@ ROOT_URLCONF = 'parallax_auth.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -151,7 +152,7 @@ OAUTH2_PROVIDER = {
     'SCOPES': {
         'read': 'Read scope',
         'write': 'Write scope',
-        'groups': 'Access to your groups',
+        'introspection': 'Introspect token scope',
     }
 }
 OAUTH2_PROVIDER_APPLICATION_MODEL = 'parallax_auth.Server'

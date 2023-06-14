@@ -46,3 +46,22 @@ services:
       - db
     networks:
       - default
+
+  tests:
+    build: .
+    command: coverage run -m pytest
+    volumes:
+      - .:/parallax-auth
+    environment:
+      - PYTHONUNBUFFERED=1
+      - DJANGO_SETTINGS_MODULE=parallax_auth.settings
+      - DB_HOST=db
+      - DB_NAME=parallax
+      - DB_USER=parallax
+      - DB_PASSWORD=parallax
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - default
