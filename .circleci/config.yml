@@ -8,6 +8,7 @@ jobs:
         POSTGRES_USER: parallax
         POSTGRES_DB: parallax-auth
         POSTGRES_PASSWORD: parallax
+        POSTGRES_PORT: 5433
     steps:
       - checkout
       - run:
