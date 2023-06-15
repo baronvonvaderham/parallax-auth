@@ -7,6 +7,15 @@ def test_authorized_users__no_token(user, server):
     client = APIClient()
     response = client.get('/server/authorized-users/')
     assert response.status_code == 401
+    assert response.data.get('detail') == 'Authentication credentials were not provided.'
+
+
+def test_authorized_users__token_in_wrong_place(user, server, token):
+    client = APIClient()
+    client.credentials(credentials=token.token)
+    response = client.get('/server/authorized-users/')
+    assert response.status_code == 401
+    assert response.data.get('detail') == 'Authentication credentials were not provided.'
 
 
 def test_authorized_users__just_owner(user, server, token):
@@ -14,7 +23,6 @@ def test_authorized_users__just_owner(user, server, token):
     client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.token}')
     client.force_authenticate(user=user, token=token)
     response = client.get('/server/authorized-users/')
-    print(response.data)
     assert response.status_code == 200
     assert response.data == ['feynman@caltech.edu']
 
@@ -30,6 +38,14 @@ def test_authorized_users__multiple(user, server, token, create_user):
     client.credentials(HTTP_AUTHORIZATION=f'Bearer {token.token}')
     client.force_authenticate(user=user, token=token)
     response = client.get('/server/authorized-users/')
-    print(response.data)
     assert response.status_code == 200
     assert len(response.data) == 3
+
+
+def test_authorized_users__invalid_token(user, server):
+    token = 'A completely made up token'
+    client = APIClient()
+    client.credentials(HTTP_AUTHORIZATION=f'Bearer {token}')
+    client.force_authenticate(user=user, token=token)
+    response = client.get('/server/authorized-users/')
+    assert response.status_code == 401

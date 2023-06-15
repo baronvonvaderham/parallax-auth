@@ -6,4 +6,5 @@ django-oauth-toolkit
 django-rest-framework
 model-bakery
 psycopg2
+pytest-cov
 pytest-django

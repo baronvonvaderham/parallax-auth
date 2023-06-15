@@ -8,7 +8,18 @@ from parallax_auth.models.user import ParallaxUser
 
 
 class ServerManager(models.Manager):
-    pass
+
+    def register(self, owner, name, client_id, client_secret, ip=None):
+        server = self.model(
+            user=owner,
+            name=name,
+            client_id=client_id,
+            client_secret=client_secret,
+            ip=ip,
+            authorization_grant_type=AbstractApplication.GRANT_CLIENT_CREDENTIALS
+        )
+        server.save()
+        return server
 
 
 class Server(BaseModel, AbstractApplication):
