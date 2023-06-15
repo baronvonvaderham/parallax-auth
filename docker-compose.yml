@@ -54,7 +54,7 @@ services:
       - .:/parallax-auth
     environment:
       - PYTHONUNBUFFERED=1
-      - DJANGO_SETTINGS_MODULE=parallax_auth.settings
+      - DJANGO_SETTINGS_MODULE=parallax_auth.test_settings
       - DB_HOST=db
       - DB_NAME=parallax
       - DB_USER=parallax

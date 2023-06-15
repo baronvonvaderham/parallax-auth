@@ -1,0 +1,33 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+    - image: cimg/python:3.10.6
+    - image: cimg/postgres:14.0
+      environment:
+        POSTGRES_USER: parallax
+        POSTGRES_DB: parallax-auth
+        POSTGRES_PASSWORD: parallax
+    steps:
+      - checkout
+      - run:
+          name: Setup testing environment
+          command: pip install -r requirements.txt
+      - run:
+          name: Run Tests
+          environment:
+            DJANGO_SETTINGS_MODULE: 'parallax_auth.test_settings'
+          command: coverage run -m pytest
+      - run:
+          name: Coverage report
+          command: coverage report
+      - run:
+          name: Codecov
+          command: |
+            curl -Os https://uploader.codecov.io/latest/linux/codecov
+            chmod +x codecov
+            ./codecov
+workflows:
+  test-workflow:
+    jobs:
+    - build
