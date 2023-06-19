@@ -49,7 +49,7 @@ services:
 
   tests:
     build: .
-    command: coverage run -m pytest --cov
+    command: coverage run -m pytest --cov -p no:cacheprovider
     volumes:
       - .:/parallax-auth
     environment:

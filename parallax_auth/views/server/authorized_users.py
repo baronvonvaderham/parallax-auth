@@ -1,9 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 
+from oauth2_provider.models import AccessToken
 from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from oauth2_provider.models import AccessToken
 
 
 class AuthorizedUsers(APIView):

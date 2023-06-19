@@ -18,10 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 from parallax_auth.views.server.authorized_users import AuthorizedUsers
+from parallax_auth.views.server.register_server import RegisterServer
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('server/authorized-users/', AuthorizedUsers.as_view()),
+    path('server/register/', RegisterServer.as_view()),
 ]

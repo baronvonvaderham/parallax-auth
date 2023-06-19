@@ -1,5 +1,7 @@
 import pytest
 
+from django.core.exceptions import FieldError
+
 from parallax_auth.models.server import Server
 from parallax_auth.models.user import ParallaxUser
 
@@ -47,6 +49,15 @@ class TestServerModel:
         assert server.ip is None
         assert server.client_id == 'totally valid client id'
         assert server.owner == user
+
+    def test_register_server__missing_data(self, user):
+        with pytest.raises(FieldError) as e:
+            server = Server.objects.register(
+                owner=user,
+                name='Test Server',
+                client_id='totally valid client id',
+                client_secret=None
+            )
 
     def test_add_authorized_user_to_server(self, server, user):
         assert len(server.authorized_users.all()) == 0

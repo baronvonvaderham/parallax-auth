@@ -1,4 +1,4 @@
-from django.contrib import admin
+from django.core.exceptions import FieldError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from oauth2_provider.models import AbstractApplication
@@ -10,12 +10,15 @@ from parallax_auth.models.user import ParallaxUser
 class ServerManager(models.Manager):
 
     def register(self, owner, name, client_id, client_secret, ip=None):
+        if not all([owner, name, client_id, client_secret]):
+            raise FieldError
         server = self.model(
             user=owner,
             name=name,
             client_id=client_id,
             client_secret=client_secret,
             ip=ip,
+            client_type=AbstractApplication.CLIENT_CONFIDENTIAL,
             authorization_grant_type=AbstractApplication.GRANT_CLIENT_CREDENTIALS
         )
         server.save()
@@ -26,6 +29,8 @@ class Server(BaseModel, AbstractApplication):
     """
     Model for Server objects that represent remote servers
     which use this application to authenticate.
+
+    (note: does not have admin class or registration with admin since AbstractApplication is already registered)
     """
     name = models.CharField(_('name'), max_length=32, blank=False, null=False)
     ip = models.GenericIPAddressField(_('IP Address'), blank=True, null=True, editable=False)

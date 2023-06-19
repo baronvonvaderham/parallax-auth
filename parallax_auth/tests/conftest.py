@@ -66,8 +66,16 @@ def create_token(server):
 
 
 @pytest.fixture
-def token(create_token):
+def server_token(create_token):
     """
     An AccessToken instance for a default token for the default server
     """
     return create_token()
+
+
+@pytest.fixture
+def user_token(create_token, user):
+    """
+    An AccessToken instance for a default token for the default user
+    """
+    return create_token(user=user, server=None)
